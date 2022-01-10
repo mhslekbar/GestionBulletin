@@ -1,0 +1,169 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Start Login Form */
+
+.login form {
+    width: 500px;
+    margin: 40px auto;
+}
+.login form .input {
+    margin-top: 15px;
+}
+
+/* End Login Form */
+
+
+/* Start Student Manage */
+
+.etudiant h1 {
+    margin: 0;
+    padding: 20px 0 ;
+}
+
+.etudiant .btn-add {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.etudiant td[class="control"]{
+    width: 200px;
+}
+
+/* End Student Manage */
+
+/* Start Matiere Manage */
+
+.notes h1 {
+    margin: 0;
+    padding: 20px 0 ;
+}
+
+.notes .search {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.p-arrow {
+    position: relative;
+}
+
+.p-arrow .fa-angle-down {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.p-arrow .angle-new {
+    position: absolute;
+    top: 10px;
+    right: 130px;
+}
+
+/* End Matiere Manage */
+
+/* Start Manage Notes  */
+
+
+.notes .table-note {
+    width: 900px;
+}
+
+.notes .table-note input {
+    width: 100px;
+}
+
+.notes .inp-matricule {
+    border: 0;
+    outline: 0;
+}
+
+.notes .table  {
+    position: relative;
+}
+
+.notes .table thead .custom-edit-note {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #080;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.notes .table th[scope="col-edit"]{
+    width: 180px;
+} 
+
+.notes .custom-print-notes {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
+
+.table-note #devoir, .table-note  #compo {
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: #FFF;
+}
+
+
+/* End  Manage Notes  */
+
+.notes .msg,
+.classes .msg {
+    width: 415px;
+}
+
+.classes table {
+    width: 420px;
+}
+
+.classes th[scope="delete"]{
+    width: 80px;
+}
+.classes #add-new-matiere span {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+/* Start dashboard Bulletin */
+.dashboard .displayErrorCheck {
+    display: none;
+    background-color: #EEE;
+    margin-top: 10px;
+    padding: 5px;
+    border-left: #F00 solid;
+    width: 200px;
+}
+
+
+
+/* End dashboard Bulletin */
+
+
+
+/* Print Notes */
+
+@media print {
+    navbar ,
+    .notes .search ,
+    .notes #modifierNotes ,
+    .notes #col-custom ,
+    .btn-imprimer ,
+    .checkMatDiv ,
+    h1 {
+        display: none;
+        /* visibility: hidden; */
+    }
+}
