@@ -129,21 +129,20 @@ $(document).ready(function(){
     });
     
     function getMatiere(){
-        // $(".ajouter-mat").empty();
+        
         $.ajax({
             url: "getMatieres.php",
             method: "GET",
             success: function(response){
-                $("<option value=''>choisir une matiere</option>").appendTo(".ajouter-mat");
+                $("<option value=''>choisir une matiere</option>").appendTo(".new-matiere:last-child .ajouter-mat");
                 $.each(response,function(key,value){
-                    $('<option value="'+value['idMatiere']+'">'+value['NomMatiere']+'</option>').appendTo(".ajouter-mat");
-                });
+                    $('<option value="'+value['idMatiere']+'">'+value['NomMatiere']+'</option>').appendTo(".new-matiere:last-child .ajouter-mat");
+                });    
             },
             error: function(err,r,t) {
                 alert(err + r + t);
             }
         });
-    
     
     }
 
@@ -296,11 +295,7 @@ $(document).ready(function(){
                             count++;
                         });
                         $(".bulletin").append('<tr>\
-                                <td><strong>Moyenne Generale</strong></td>\
-                                <td></td>\
-                                <td></td>\
-                                <td></td>\
-                                <td></td>\
+                                <td colspan="5"><strong>Moyenne Generale</strong></td>\
                                 <td><strong>'+(sumMGM / sumCoeff).toFixed(2)+'</strong></td>\
                         </tr>');
                         if(((sumMGM / sumCoeff).toFixed(2)) >= 9 ){
