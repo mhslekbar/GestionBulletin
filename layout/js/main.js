@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    
     'use strict';
     
 
@@ -13,24 +14,15 @@ $(document).ready(function(){
     /* Start Manage Student  */
 
     $(".btnEdit").on("click",function(){
-        var id = $(this).data("edit");
-        $.ajax({
-            url: "edit-etudiant.php",
-            method: "POST",
-            data: { "id" : id},
-            success: function(response){
-                $.each(response,function(){                    
-                    $("#regNo").val(response['Matricule']);
-                    $("#fname").val(response['FullName']);
-                    $("#phone").val(response['Telephone']);
-                    $("#addr").val(response['Addresse']);
-                    $("#classe").val(response['idClasse']);
-                });
-            },
-            error: function(err){
-                alert(err);
-            }
-        });
+        var data = $(this).closest("tr").children("td").map(function(){
+            return $(this).text();
+        }).get();
+        $("#regNo").val(data[1]);
+        $("#fname").val(data[2]);
+        $("#phone").val(data[3]);
+        $("#addr").val(data[4]);
+        $("#classe").val(data[6]);
+
     });
 
 
@@ -42,14 +34,14 @@ $(document).ready(function(){
 
     $("#classeEtudiant").on("change",function(){
         var idClasse = $(this).val();
-        if(idClasse != ""){
+        if(idClasse !=""){
             $.ajax({
                 url: "noteCode/getStudentsAndDisplayOnTable.php",
                 method: "POST",
                 data : {"idClasse" : idClasse},
                 success : function(response){
                      $(".table-student").empty();
-                     if(response != ""){
+                     if(response !=""){
                         $(".table-student").append('<thead>\
                                 <tr>\
                                     <th scope="col">#ID</th>\
@@ -106,7 +98,7 @@ $(document).ready(function(){
 
     $(document).on("click","#add-new-matiere",function(){
         
-        if($(".new-matiere:last-child #new-mat").val() != ""){
+        if($(".new-matiere:last-child #new-mat").val() !=""){
 
             getMatiere();
     
@@ -150,7 +142,7 @@ $(document).ready(function(){
         var idClasse = $(this).val();
         $(".classes .table").addClass("d-none");
         $(".classes .afficherMatiereInClasseFile").empty();
-        if(idClasse != "") {
+        if(idClasse !="") {
             $.ajax({
                 url: "noteCode/afficherMatiereOnTable.php",
                 method: "GET",
@@ -188,7 +180,7 @@ $(document).ready(function(){
         $(".afficherMatIntoNote").addClass("d-none");
         $(".notes #subject").empty();
 
-        if(idClasse != "" || idmat != ""){
+        if(idClasse !="" || idmat !=""){
             $.ajax({
                 url: "noteCode/setMatiereToNote.php",
                 method: "GET",
@@ -211,7 +203,7 @@ $(document).ready(function(){
         var idclass = $(".notes #classe").val();
         // alert(idmat);
         $(".table-note").addClass("d-none");
-        if(idmat != "" || idclass != ""){
+        if(idmat !="" || idclass !=""){
             $(".assignNotes").empty();
                 $.ajax({
                 url: "noteCode/getAllStudentAndNotes.php",
@@ -260,7 +252,6 @@ $(document).ready(function(){
         var matricule = $(this).val();
         $(".bulletin").empty();
         $(".infoBulletin").empty();
-        $(".table-bulletin").removeClass("d-none");
         if(matricule != ""){
 
             $.ajax({
@@ -269,19 +260,17 @@ $(document).ready(function(){
                 data: {'regNo' : matricule},
                 type: "JSON",
                 success: function(response){
-                    var sumMGM = 0;
-                    var sumCoeff = 0;
-                    var count = 0;
+                    var sumMGM = 0 , sumCoeff = 0 ,count = 0; 
                     if(response != ""){
+                        $(".table-bulletin").removeClass("d-none");
                         $.each(response,function(key,value){
                             $(".displayErrorCheck").hide();
                             if(count == 0){
                                 $(".infoBulletin").append('<label> Nom Et Prenom : '+value['FullName']+'</label><br>\
-                                    <label> Matricule : '+value['Matricule']+'</label><br>\
+                                    <label>Matricule : '+value['Matricule']+'</label><br>\
                                     <label>Classe : '+value['NomClasse']+'</label>\
                                 ');
                             }
-                            
                             $(".bulletin").append('<tr>\
                                 <td>INI-'+value['Matiere']+'</td>\
                                 <td>'+value['NomMatiere']+'</td>\
@@ -296,23 +285,38 @@ $(document).ready(function(){
                         });
                         $(".bulletin").append('<tr>\
                                 <td colspan="5"><strong>Moyenne Generale</strong></td>\
-                                <td><strong>'+(sumMGM / sumCoeff).toFixed(2)+'</strong></td>\
+                                <td><strong id="MGM">'+(sumMGM / sumCoeff).toFixed(2)+'</strong></td>\
                         </tr>');
                         if(((sumMGM / sumCoeff).toFixed(2)) >= 9 ){
-                            $(".bulletin").append("<strong>decision : Admis</strong>");
+                            $(".bulletin").append("<strong id='decisionGood'>decision : Admis</strong>");
                         }else {
-                            $(".bulletin").append("<strong>decision : Ajourné</strong>");
+                            $(".bulletin").append("<strong id='decisionBad'>decision : Ajourné</strong>");
                         }
-
+                        $("#decisionGood span").empty();
+                        $("#decisionBad span").empty();
+                        $.ajax({
+                            url: "noteCode/getRankOfStudent.php",
+                            method: "POST",
+                            data: {"regNo" : matricule},
+                            success: function(res) {
+                                $("#decisionGood").after("<span> Rang : " + res + "</span>");
+                                $("#decisionBad").after("<span> Rang : " + res + "</span>");
+                            },
+                            error: function(err) {
+                                alert(err);
+                            }
+                        });
+                        
                     }else {
                         $(".table-bulletin").addClass("d-none");  
-                        $(".displayErrorCheck").show();
+                        $(".displayErrorCheck").fadeIn(500);
                         $(".displayErrorCheck").text("Matricule N'existe pas ");
                     }
                 },
             });    
+            
         } else {
-            $(".displayErrorCheck").hide();
+            $(".displayErrorCheck").fadeOut(500);
             $(".table-bulletin").addClass("d-none");
         }
 
