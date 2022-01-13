@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" href="dashboard.php">Home</a>
+    <a class="navbar-brand" href="dashboard.php">Voir Les Bulletins</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,10 +10,13 @@
           <a class="nav-link active" aria-current="page" href="etudiants.php">Etudiants</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="classes.php">Classes</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="notes.php">Notes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="classes.php">Classes</a>
+          <a class="nav-link" href="bulletins.php">Bulltetin</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
