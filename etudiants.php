@@ -116,7 +116,7 @@
                         foreach($matieres as $matiere){
                             insertIntoNotes($regNo,$classe,$matiere['subject']);  
                         }
-
+                        insertRegNoAndClassIntoBulletin($regNo,$classe);                    
                     }catch (PDOException $e){
                         $theMsg = "<div class='alert alert-danger msg'>".$e->getMessage()."</div>";
                     }
@@ -302,6 +302,7 @@
                 </div>
             </div>
         </div>
+        <div class="table-responsive">
         <table class="table table-student">
             <thead>
                 <tr>
@@ -325,6 +326,7 @@
                     <td><?= $student['Telephone'];?></td>
                     <td><?= $student['Addresse'];?></td>
                     <td><?= $student['classe'];?></td>
+                    <td hidden><?= $student['idClasse'];?></td>
                     <td class="control">
                         <button type="button" class="btn btn-success btnEdit" data-edit="<?= $student['Matricule']; ?>" data-bs-toggle="modal" data-bs-target="#editModal">
                             <i class="fas fa-edit"></i> Edit
@@ -336,7 +338,9 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-    
+        </table>
+        </div>
+
     <!-- End Table -->
   
 <?php
