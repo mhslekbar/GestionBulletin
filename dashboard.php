@@ -8,7 +8,7 @@
 ?>
 
         <h1 class='text-center mt-3 mb-2'>Voir Les Bulletins</h1>
-            <div class="row">
+        <div class="row">
                 <div class="offset-md-2 col-md-2">
                 <div class='form-group checkMatDiv'>
                     <input class='form-control' type='text' placeholder="Entrer Votre Matricule" id="matriculeCheck">
@@ -32,7 +32,6 @@
                             <th>Coeff</th>
                             <th>Devoir</th>
                             <th>Compo</th>
-                            <!-- <th>Moyenne</th> -->
                             <th>MGM</th>
                         </tr>
                     </thead>
@@ -40,9 +39,6 @@
 
                     </tbody>
                 </table>
-                <div class="decision">
-                    
-                </div>
             </div>
             <div class="row btn-imprimer">
                 <div class="offset-md-10 col-md-2">
