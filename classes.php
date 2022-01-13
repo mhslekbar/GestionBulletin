@@ -116,19 +116,20 @@
             </div>
         </div>
         <div class="display-msg"></div>
-        <table class="table d-none">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nom</th>
-                    <th scope="delete">Delete</th>
-                </tr>
-            </thead>
-            <tbody class="afficherMatiereInClasseFile">
-                
-            </tbody>
-        </table>
-
+        <div class="table-responsive">
+            <table class="table d-none">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th scope="delete">Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="afficherMatiereInClasseFile">
+                    
+                </tbody>
+            </table>
+        </div>
         <!-- End Afficher les classes  -->
 
         
