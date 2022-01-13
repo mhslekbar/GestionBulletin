@@ -36,6 +36,7 @@ input[type=number] {
     width: 200px;
 }
 
+
 /* End Student Manage */
 
 /* Start Matiere Manage */
@@ -113,6 +114,15 @@ input[type=number] {
     outline: none;
     background-color: #FFF;
 }
+#editModal .p-arrow .fa-angle-down {
+    top: 35px;
+}
+
+@media (max-width: 768px) {
+    .notes .table-note {
+        width: 400px;
+    }
+}
 
 
 /* End  Manage Notes  */
@@ -147,9 +157,28 @@ input[type=number] {
     width: 200px;
 }
 
-
+.dashboard #decisionGood~span {
+    color: #080;
+    font-weight: bold;
+}
+.dashboard #decisionBad~span {
+    color: #F00;
+    font-weight: bold;
+}
 
 /* End dashboard Bulletin */
+
+/* start SHow Bulletin best Student */
+
+.bulletins  .main-table {
+    /* width: 800px; */
+}
+
+
+
+
+/* End SHow Bulletin best Student */
+
 
 
 
