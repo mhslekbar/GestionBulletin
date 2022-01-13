@@ -9,7 +9,7 @@
 ?>        
        <form action="" method="POST">
             <div class="search row">
-                <div class="col-md-4">
+                <div class="col-md-4 mb-2">
                     <div class="form-group p-arrow">
                         <select name="classe" id="classe" class="form-control">
                             <?php
@@ -22,7 +22,7 @@
                         <i class="fas fa-angle-down"></i>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-2">
                     <div class="form-group p-arrow afficherMatIntoNote d-none">
                         <select name="subject" id="subject" class="form-control">
                             
@@ -31,7 +31,9 @@
                     </div>
                 </div>
             </div>
-            <div class="table-note table-responsive d-none">
+            <div class="row">
+                <div class="col-xs-12">
+                <div class="table-note table-responsive d-none">
                 <table class="table">
                     <thead>
                         <tr>
@@ -53,6 +55,9 @@
                 </table>
                 <button type="submit" name="updateNotes" class="btn btn-success float-end" id="modifierNotes">Modifier les notes</button>
             </div> 
+
+                </div>
+            </div>
         </form>
 
         <?php
@@ -70,7 +75,17 @@
                         continue;
                     }
                     $update = updateNotes($devoir,$compos[$index],$classe,$matiere,$regNo[$index]);
+                    
                     $success = true;
+                    $sumMGM = 0;
+                    $sumCoeff = 0;
+                    foreach(SelectMGMFromBulletin($regNo[$index]) as $bulletin){
+                        $sumMGM += $bulletin['MGM'];
+                        $sumCoeff += $bulletin['Coeff'];
+                    }
+                    $MoyenTOT = $sumMGM / $sumCoeff;
+                    UpdateBulletin($MoyenTOT,$regNo[$index]);  
+                    
                 }
                 if($success) {
                     echo "<div class='alert alert-success msg'>Les Notes Ont Ete Modifier Avec succes</div>";
