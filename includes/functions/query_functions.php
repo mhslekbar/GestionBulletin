@@ -42,7 +42,7 @@
 
     function selectClasse(){
         global $conn;
-        $stmt = $conn->prepare("SELECT * FROM classes");
+        $stmt = $conn->prepare("SELECT * FROM classes GROUP BY NomClasse");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -169,6 +169,53 @@
 
 
     /* End CLasse */
+
+
+
+
+    /**  Start Bulletin */
+
+    function SelectMGMFromBulletin($matricule) {
+        global $conn;
+        $stmt = $conn->prepare("SELECT Coeff , (0.4 * NoteDevoir + 0.6 * NoteCompo ) * Coeff AS MGM FROM notes n JOIN matieres m JOIN classes c JOIN etudiants e ON e.Matricule = n.Matricule AND m.idMatiere = n.idMatiere AND n.idClasse = c.idClasse WHERE n.Matricule = ? GROUP BY n.Matricule , n.idMatiere");
+        $stmt->execute([$matricule]);
+        return $stmt->fetchAll();
+    }
+
+    function insertRegNoAndClassIntoBulletin($matricule,$idClasse) {
+        global $conn;
+        $stmt = $conn->prepare("INSERT INTO bulletins (Matricule,idClasse) VALUES (?,?)");
+        $stmt->execute([$matricule,$idClasse]);
+        return $stmt->rowCount();
+    }
+
+    function UpdateBulletin($MGM,$regNo) {
+        global $conn;
+        $stmt = $conn->prepare("UPDATE bulletins SET MGM = ? WHERE Matricule = ?");
+        $stmt->execute([$MGM,$regNo]);
+        return $stmt->rowCount();
+    }
+
+    function selectBestStudent(){
+        global $conn;
+        $stmt = $conn->prepare("SELECT FullName, NomClasse, MGM ,b.Matricule as regNo , RANK() over(ORDER BY MGM DESC) as Rank_no FROM bulletins b JOIN etudiants e JOIN classes c ON c.idClasse = b.idClasse AND b.Matricule = e.Matricule ORDER BY MGM DESC LIMIT 5");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    function getClasseUsingRegNo($regNo){
+        global $conn;
+        $stmt = $conn->prepare("SELECT NomClasse FROM etudiants e JOIN classes c ON c.idClasse = e.idClasse WHERE Matricule = ?");
+        $stmt->execute([$regNo]);
+        return $stmt->fetch();
+    }
+
+    /**  End  Bulletin */
+
+
+
+
+
 
 ?>
 
