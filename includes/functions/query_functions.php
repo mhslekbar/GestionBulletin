@@ -110,6 +110,20 @@
         return $stmt->fetch();
     }
 
+    function deleteStudentFromNote($regNo) {
+        global $conn;
+        $stmt = $conn->prepare("DELETE FROM Notes WHERE Matricule = ?");
+        $stmt->execute([$regNo]);
+        return $stmt->rowCount();
+    }
+
+    function deleteStudentFromBulletin($regNo){
+        global $conn;
+        $stmt = $conn->prepare("DELETE FROM Bulletins WHERE Matricule = ?");
+        $stmt->execute([$regNo]);
+        return $stmt->rowCount();
+    }
+
     /* End Manage Student  */
 
     /* Start Manage Notes  */
