@@ -210,6 +210,16 @@
                 if(!is_numeric($classe)){
                     $formErrors[] = "la Classe Est <strong>Obligatoire</strong>";
                 }
+                
+                if($classe != $student['idClasse']){
+                    deleteStudentFromNote($regNo);
+                    deleteStudentFromBulletin($regNo);
+                    $matieres = getMatiereWhereClass(getClasseUsingIdClasse($classe)['NomClasse']);
+                    foreach($matieres as $matiere){
+                        insertIntoNotes($regNo,$classe,$matiere['subject']);  
+                    }                    
+                    insertRegNoAndClassIntoBulletin($regNo,$classe);
+                }
 
                 foreach($formErrors as $error):
                     echo "<div class='alert alert-danger msg'>" . $error . "</div>";
